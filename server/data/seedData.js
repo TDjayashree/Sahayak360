@@ -1,0 +1,537 @@
+const departmentsData = [
+  {
+    id: "roads",
+    name: "Roads & Infrastructure",
+    code: "RDS",
+    head: "Er. Priya Deshmukh",
+    email: "priya.roads@city.gov.in",
+    phone: "+91 98201 44521",
+    slaHours: 48,
+    color: "#f59e0b",
+    icon: "Truck",
+    categories: [
+      "Potholes & Road Cavings",
+      "Broken Footpaths / Pavers",
+      "Street Sign & Signal Damage",
+      "Unauthorized Road Digging",
+      "Illegal Speed Breaker / Rumble Strips"
+    ],
+    description: "Maintenance and repair of arterial roads, flyovers, footpaths, and traffic safety fixtures."
+  },
+  {
+    id: "water",
+    name: "Water Supply & Drainage",
+    code: "WTR",
+    head: "Er. Amit Verma",
+    email: "amit.water@city.gov.in",
+    phone: "+91 98202 55632",
+    slaHours: 24,
+    color: "#0284c7",
+    icon: "Droplets",
+    categories: [
+      "Pipeline Burst / Leakage",
+      "Contaminated / Muddy Water",
+      "Low Pressure Water Supply",
+      "Blocked Stormwater Drainage",
+      "Missing / Broken Manhole Cover"
+    ],
+    description: "Management of drinking water distribution, sewerage network, and stormwater drain clearance."
+  },
+  {
+    id: "electricity",
+    name: "Electricity & Streetlights",
+    code: "ELC",
+    head: "Er. Suresh Nair",
+    email: "suresh.elec@city.gov.in",
+    phone: "+91 98203 66743",
+    slaHours: 12,
+    color: "#eab308",
+    icon: "Zap",
+    categories: [
+      "Dark Street / Dead Streetlights",
+      "Dangling Live Electrical Cable",
+      "Transformer Sparking / Breakdown",
+      "Damaged Electric Pole",
+      "Unmetered / Open Feeder Pillar"
+    ],
+    description: "Public illumination, distribution grid repairs, street lighting maintenance, and electrical hazard safety."
+  },
+  {
+    id: "sanitation",
+    name: "Sanitation & Solid Waste",
+    code: "SNT",
+    head: "Insp. Vikram Singh",
+    email: "vikram.clean@city.gov.in",
+    phone: "+91 98204 77854",
+    slaHours: 24,
+    color: "#10b981",
+    icon: "Trash2",
+    categories: [
+      "Overflowing Community Bin / Dumpster",
+      "Door-to-Door Garbage Vehicle Missed",
+      "Illegal Debris / Construction Waste",
+      "Animal Carcass Removal",
+      "Public Toilet Sanitation Issue"
+    ],
+    description: "Municipal solid waste collection, street sweeping, community bins management, and public hygiene."
+  },
+  {
+    id: "health",
+    name: "Public Health & Environment",
+    code: "HLT",
+    head: "Dr. Sunita Rao",
+    email: "sunita.health@city.gov.in",
+    phone: "+91 98205 88965",
+    slaHours: 36,
+    color: "#ec4899",
+    icon: "ShieldAlert",
+    categories: [
+      "Mosquito Breeding / Dengue Fogging",
+      "Foul Odor / Stagnant Sewage",
+      "Stray Dog Menace / Vaccination",
+      "Hazardous / Biomedical Waste Dumping",
+      "Unhygienic Food Stall Complaints"
+    ],
+    description: "Vector-borne disease control, public health sanitation standards, and environmental hazard mitigation."
+  }
+];
+
+const usersData = [
+  {
+    id: "user-citizen-1",
+    name: "Rahul Sharma",
+    email: "rahul@citizen.in",
+    passwordHash: "$2a$10$wN3k9.r0Z9Nl9RkWsVqGMe0oU3P7Uo1y1v/jD0b.PjD54m2K2U8y6", // citizen123
+    role: "citizen",
+    phone: "+91 98765 43210",
+    ward: "Ward 14 - Indiranagar",
+    address: "B-402, Sunshine Apartments, 12th Main Rd",
+    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    id: "user-citizen-2",
+    name: "Ananya Iyer",
+    email: "ananya@citizen.in",
+    passwordHash: "$2a$10$wN3k9.r0Z9Nl9RkWsVqGMe0oU3P7Uo1y1v/jD0b.PjD54m2K2U8y6", // citizen123
+    role: "citizen",
+    phone: "+91 98111 22334",
+    ward: "Ward 22 - Koramangala",
+    address: "77, 4th Cross, 5th Block",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    id: "user-officer-roads",
+    name: "Er. Priya Deshmukh",
+    email: "priya.roads@city.gov.in",
+    passwordHash: "$2a$10$0d2Z2E7Z3tL9iU2mS2bOeu7m8q5V6v4n2m8K0z6J0x1C2B3N4M5O6", // officer123
+    role: "department_officer",
+    department: "roads",
+    designation: "Executive Engineer - Road Infrastructure",
+    phone: "+91 98201 44521",
+    ward: "Central Division (Wards 1-25)",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    id: "user-officer-water",
+    name: "Er. Amit Verma",
+    email: "amit.water@city.gov.in",
+    passwordHash: "$2a$10$0d2Z2E7Z3tL9iU2mS2bOeu7m8q5V6v4n2m8K0z6J0x1C2B3N4M5O6", // officer123
+    role: "department_officer",
+    department: "water",
+    designation: "Chief Superintendent - Water & Sewerage",
+    phone: "+91 98202 55632",
+    ward: "Metropolitan Water Board",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    id: "user-officer-electricity",
+    name: "Er. Suresh Nair",
+    email: "suresh.elec@city.gov.in",
+    passwordHash: "$2a$10$0d2Z2E7Z3tL9iU2mS2bOeu7m8q5V6v4n2m8K0z6J0x1C2B3N4M5O6", // officer123
+    role: "department_officer",
+    department: "electricity",
+    designation: "Divisional Engineer - Public Lighting",
+    phone: "+91 98203 66743",
+    ward: "City Power Grid - Zone 2",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    id: "user-officer-sanitation",
+    name: "Insp. Vikram Singh",
+    email: "vikram.clean@city.gov.in",
+    passwordHash: "$2a$10$0d2Z2E7Z3tL9iU2mS2bOeu7m8q5V6v4n2m8K0z6J0x1C2B3N4M5O6", // officer123
+    role: "department_officer",
+    department: "sanitation",
+    designation: "Chief Sanitary Inspector",
+    phone: "+91 98204 77854",
+    ward: "Zone 4 Health & Sanitation",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    id: "user-admin",
+    name: "Dr. Aruna Patel, IAS",
+    email: "commissioner@city.gov.in",
+    passwordHash: "$2a$10$9GvF5t8H3qK1jL9sM2bOe.6v5n3m8K0z6J0x1C2B3N4M5O6P7Q8R9", // admin123
+    role: "admin",
+    designation: "Municipal Commissioner",
+    phone: "+91 98999 10001",
+    ward: "City Headquarters",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80"
+  }
+];
+
+const sampleComplaintsData = [
+  {
+    id: "cmp-1001",
+    trackingId: "SHK-2026-9041",
+    title: "Dangerous Pothole Cluster near Metro Station Gate 3",
+    description: "Deep pothole spanning across both lanes causing severe traffic jam and two-wheeler skids every rainy evening. At least two commuters fell yesterday.",
+    department: "roads",
+    category: "Potholes & Road Cavings",
+    priority: "critical",
+    status: "in_progress",
+    location: {
+      address: "100 Feet Rd, Opposite Metro Pillar 142",
+      ward: "Ward 14 - Indiranagar",
+      landmark: "Near Metro Gate 3 & Barista",
+      latitude: 12.9719,
+      longitude: 77.6412
+    },
+    citizen: {
+      id: "user-citizen-1",
+      name: "Rahul Sharma",
+      phone: "+91 98765 43210",
+      email: "rahul@citizen.in"
+    },
+    assignedTo: {
+      officerId: "user-officer-roads",
+      officerName: "Er. Priya Deshmukh",
+      assignedAt: "2026-10-25T09:30:00.000Z"
+    },
+    attachments: [
+      {
+        filename: "pothole_crater.jpg",
+        originalName: "indiranagar_pothole_crater.jpg",
+        mimeType: "image/jpeg",
+        url: "/evidence/pothole_crater.jpg",
+        size: 1065581
+      }
+    ],
+    timeline: [
+      {
+        status: "submitted",
+        title: "Complaint Registered",
+        description: "Citizen Rahul Sharma submitted the civic complaint with photo verification.",
+        updatedBy: "Rahul Sharma (Citizen)",
+        timestamp: "2026-10-25T08:15:00.000Z"
+      },
+      {
+        status: "under_review",
+        title: "Auto-Routed to Roads Department",
+        description: "Categorized as Roads & Infrastructure issue. Automated SLA set to 48 Hours.",
+        updatedBy: "Sahayak Routing Engine",
+        timestamp: "2026-10-25T08:16:00.000Z"
+      },
+      {
+        status: "in_progress",
+        title: "Inspection Completed & Crew Dispatched",
+        description: "Assigned to Er. Priya Deshmukh. Work Order #RD-884 issued for rapid asphalt patching by night shift crew.",
+        updatedBy: "Er. Priya Deshmukh",
+        timestamp: "2026-10-25T11:45:00.000Z"
+      }
+    ],
+    slaDeadline: "2026-10-27T08:15:00.000Z",
+    isEscalated: false,
+    createdAt: "2026-10-25T08:15:00.000Z",
+    updatedAt: "2026-10-25T11:45:00.000Z"
+  },
+  {
+    id: "cmp-1002",
+    trackingId: "SHK-2026-9042",
+    title: "Continuous Drinking Water Main Pipe Burst on Main Road",
+    description: "Treated clean drinking water leaking at high pressure since midnight, flooding the residential lane and wasting thousands of liters.",
+    department: "water",
+    category: "Pipeline Burst / Leakage",
+    priority: "high",
+    status: "resolved",
+    location: {
+      address: "Lane 4, Near Water Tank Compound",
+      ward: "Ward 22 - Koramangala",
+      landmark: "Behind BDA Complex",
+      latitude: 12.9352,
+      longitude: 77.6245
+    },
+    citizen: {
+      id: "user-citizen-2",
+      name: "Ananya Iyer",
+      phone: "+91 98111 22334",
+      email: "ananya@citizen.in"
+    },
+    assignedTo: {
+      officerId: "user-officer-water",
+      officerName: "Er. Amit Verma",
+      assignedAt: "2026-10-24T06:40:00.000Z"
+    },
+    attachments: [
+      {
+        filename: "water_pipe_leak.jpg",
+        originalName: "water_main_pipe_burst.jpg",
+        mimeType: "image/jpeg",
+        url: "/evidence/water_pipe_leak.jpg",
+        size: 1176378
+      }
+    ],
+    timeline: [
+      {
+        status: "submitted",
+        title: "Complaint Registered",
+        description: "Citizen reported high volume clean water leakage flooding street.",
+        updatedBy: "Ananya Iyer (Citizen)",
+        timestamp: "2026-10-24T06:10:00.000Z"
+      },
+      {
+        status: "in_progress",
+        title: "Emergency Valves Shut & Excavation Started",
+        description: "Valve cluster #KOR-12 isolated. Emergency pipe weld team mobilized.",
+        updatedBy: "Er. Amit Verma",
+        timestamp: "2026-10-24T07:20:00.000Z"
+      },
+      {
+        status: "resolved",
+        title: "Pipe Replaced & Pressure Restored",
+        description: "150mm cast iron main section replaced with high-durability ductile iron coupler. Street cleaned and water supply normalized.",
+        updatedBy: "Er. Amit Verma",
+        timestamp: "2026-10-24T14:30:00.000Z"
+      }
+    ],
+    resolution: {
+      resolvedAt: "2026-10-24T14:30:00.000Z",
+      resolutionNote: "Replaced fractured ductile pipe with heavy-duty seal clamp. Water quality testing passed.",
+      proofImage: "/evidence/water_repair_proof.jpg",
+      resolvedBy: "Er. Amit Verma"
+    },
+    feedback: {
+      rating: 5,
+      comment: "Super prompt action by the water department team! Fixed within 8 hours.",
+      submittedAt: "2026-10-24T16:00:00.000Z"
+    },
+    slaDeadline: "2026-10-25T06:10:00.000Z",
+    isEscalated: false,
+    createdAt: "2026-10-24T06:10:00.000Z",
+    updatedAt: "2026-10-24T14:30:00.000Z"
+  },
+  {
+    id: "cmp-1003",
+    trackingId: "SHK-2026-9043",
+    title: "Blackout on 8 Consecutive Streetlights on Outer Ring Rd",
+    description: "Entire 500m stretch of road is completely dark. High risk of accidents and safety issues for women pedestrian commuters returning from tech parks.",
+    department: "electricity",
+    category: "Dark Street / Dead Streetlights",
+    priority: "high",
+    status: "under_review",
+    location: {
+      address: "Outer Ring Road, Service Lane near Bellandur Flyover",
+      ward: "Ward 18 - Whitefield & Tech Corridor",
+      landmark: "Near Ecospace Tech Park Flyover exit",
+      latitude: 12.9260,
+      longitude: 77.6762
+    },
+    citizen: {
+      id: "user-citizen-1",
+      name: "Rahul Sharma",
+      phone: "+91 98765 43210",
+      email: "rahul@citizen.in"
+    },
+    assignedTo: {
+      officerId: "user-officer-electricity",
+      officerName: "Er. Suresh Nair",
+      assignedAt: "2026-10-26T08:00:00.000Z"
+    },
+    attachments: [
+      {
+        filename: "dark_streetlights.jpg",
+        originalName: "dead_streetlights_outer_ring_rd.jpg",
+        mimeType: "image/jpeg",
+        url: "/evidence/dark_streetlights.jpg",
+        size: 727825
+      }
+    ],
+    timeline: [
+      {
+        status: "submitted",
+        title: "Complaint Registered",
+        description: "Citizen reported dark road stretch and safety hazard.",
+        updatedBy: "Rahul Sharma (Citizen)",
+        timestamp: "2026-10-26T07:15:00.000Z"
+      },
+      {
+        status: "under_review",
+        title: "Assigned to Power & Streetlights Division",
+        description: "Line inspector tasked to check feeder box circuit breaker tripping.",
+        updatedBy: "Er. Suresh Nair",
+        timestamp: "2026-10-26T08:30:00.000Z"
+      }
+    ],
+    slaDeadline: "2026-10-26T19:15:00.000Z",
+    isEscalated: false,
+    createdAt: "2026-10-26T07:15:00.000Z",
+    updatedAt: "2026-10-26T08:30:00.000Z"
+  },
+  {
+    id: "cmp-1004",
+    trackingId: "SHK-2026-9044",
+    title: "Massive Garbage Dumping & Overflowing Bins outside School",
+    description: "Solid waste has not been collected for 4 days. Waste spilled all over pavement, dogs tearing bags, severe stench affecting nursery school children.",
+    department: "sanitation",
+    category: "Overflowing Community Bin / Dumpster",
+    priority: "critical",
+    status: "in_progress",
+    location: {
+      address: "Cross 3, Opposite St. Xavier Convent School",
+      ward: "Ward 7 - MG Road & Shanthinagar",
+      landmark: "Adjacent to Government High School playground",
+      latitude: 12.9601,
+      longitude: 77.5950
+    },
+    citizen: {
+      id: "user-citizen-2",
+      name: "Ananya Iyer",
+      phone: "+91 98111 22334",
+      email: "ananya@citizen.in"
+    },
+    assignedTo: {
+      officerId: "user-officer-sanitation",
+      officerName: "Insp. Vikram Singh",
+      assignedAt: "2026-10-25T14:00:00.000Z"
+    },
+    attachments: [
+      {
+        filename: "garbage_overflow.jpg",
+        originalName: "garbage_overflow_dumpster.jpg",
+        mimeType: "image/jpeg",
+        url: "/evidence/garbage_overflow.jpg",
+        size: 1141778
+      }
+    ],
+    timeline: [
+      {
+        status: "submitted",
+        title: "Complaint Registered",
+        description: "Critical sanitation hazard logged near school premises.",
+        updatedBy: "Ananya Iyer (Citizen)",
+        timestamp: "2026-10-25T13:40:00.000Z"
+      },
+      {
+        status: "in_progress",
+        title: "Compactor Truck Dispatched",
+        description: "Heavy compactor vehicle #KA-01-G-4412 dispatched along with sanitization sprayer crew.",
+        updatedBy: "Insp. Vikram Singh",
+        timestamp: "2026-10-25T15:10:00.000Z"
+      }
+    ],
+    slaDeadline: "2026-10-26T13:40:00.000Z",
+    isEscalated: true,
+    createdAt: "2026-10-25T13:40:00.000Z",
+    updatedAt: "2026-10-25T15:10:00.000Z"
+  },
+  {
+    id: "cmp-1005",
+    trackingId: "SHK-2026-9045",
+    title: "Open Stormwater Drain with Stagnant Water & Dengue Threat",
+    description: "Concrete slab missing over major stormwater canal. Water is completely clogged with plastic bottles, breeding hundreds of mosquitoes.",
+    department: "health",
+    category: "Mosquito Breeding / Dengue Fogging",
+    priority: "medium",
+    status: "submitted",
+    location: {
+      address: "14th Cross, 24th Main, Sector 2",
+      ward: "Ward 12 - HSR Layout",
+      landmark: "Near BDA Park Jogging Track",
+      latitude: 12.9116,
+      longitude: 77.6433
+    },
+    citizen: {
+      id: "user-citizen-1",
+      name: "Rahul Sharma",
+      phone: "+91 98765 43210",
+      email: "rahul@citizen.in"
+    },
+    assignedTo: null,
+    attachments: [
+      {
+        filename: "stagnant_drain.jpg",
+        originalName: "clogged_stormwater_drain.jpg",
+        mimeType: "image/jpeg",
+        url: "/evidence/stagnant_drain.jpg",
+        size: 1138140
+      }
+    ],
+    timeline: [
+      {
+        status: "submitted",
+        title: "Complaint Registered",
+        description: "Grievance submitted by citizen with location coordinates.",
+        updatedBy: "Rahul Sharma (Citizen)",
+        timestamp: "2026-10-26T10:00:00.000Z"
+      }
+    ],
+    slaDeadline: "2026-10-27T22:00:00.000Z",
+    isEscalated: false,
+    createdAt: "2026-10-26T10:00:00.000Z",
+    updatedAt: "2026-10-26T10:00:00.000Z"
+  }
+];
+
+const sampleNotificationsData = [
+  {
+    id: "notif-1",
+    userId: "user-citizen-1",
+    role: "citizen",
+    title: "Status Updated: SHK-2026-9041",
+    message: "Your complaint regarding pothole cluster has been assigned to Er. Priya Deshmukh (Roads Dept).",
+    type: "status_update",
+    trackingId: "SHK-2026-9041",
+    read: false,
+    createdAt: "2026-10-25T11:45:00.000Z"
+  },
+  {
+    id: "notif-2",
+    userId: "user-citizen-2",
+    role: "citizen",
+    title: "Resolution Confirmed: SHK-2026-9042",
+    message: "Water pipe burst issue has been resolved. Please rate your experience!",
+    type: "resolution",
+    trackingId: "SHK-2026-9042",
+    read: true,
+    createdAt: "2026-10-24T14:30:00.000Z"
+  },
+  {
+    id: "notif-3",
+    userId: "user-officer-roads",
+    role: "department_officer",
+    title: "High Priority Complaint Assigned",
+    message: "New critical complaint SHK-2026-9041 routed to Roads Dept: Metro Gate 3 Potholes.",
+    type: "assignment",
+    trackingId: "SHK-2026-9041",
+    read: false,
+    createdAt: "2026-10-25T08:16:00.000Z"
+  },
+  {
+    id: "notif-4",
+    userId: "user-admin",
+    role: "admin",
+    title: "SLA Escalation Alert",
+    message: "Complaint SHK-2026-9044 in Ward 7 (Sanitation) has breached the 24h SLA target.",
+    type: "alert",
+    trackingId: "SHK-2026-9044",
+    read: false,
+    createdAt: "2026-10-26T09:00:00.000Z"
+  }
+];
+
+module.exports = {
+  departmentsData,
+  usersData,
+  sampleComplaintsData,
+  sampleNotificationsData
+};

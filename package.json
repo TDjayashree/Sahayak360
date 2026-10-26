@@ -1,0 +1,18 @@
+{
+  "name": "sahayak-new",
+  "version": "1.0.0",
+  "description": "Sahayak 360 - Smart Civic Grievance & Redressal Management Platform",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "node server/server.js",
+    "client": "npm --prefix client run dev",
+    "dev": "concurrently -n \"API,WEB\" -c \"cyan,magenta\" \"npm run server\" \"npm run client\""
+  },
+  "keywords": ["mern", "civic-tech", "governance", "complaint-routing", "potholes", "water-supply", "smart-city"],
+  "author": "Antigravity",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
